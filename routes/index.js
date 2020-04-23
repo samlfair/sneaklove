@@ -13,13 +13,18 @@ router.get("/sneakers/:cat", (req, res) => {
 
 async function renderCategoryPage(req, res) {
   categoryId = req.params.cat;
+  console.log(req.params.cat);
   try {
-    const dbResSneaker = await Sneaker.find({ id_tags: req.params.cat }); // not sure if this is working
+    let dbResSneaker;
+    if (req.params.cat === "collection") {
+      dbResSneaker = await Sneaker.find({});
+    } else {
+      dbResSneaker = await Sneaker.find({ category: req.params.cat });
+    }
     const dbResTag = await Tag.find({});
-    const dbResCat = await Tag.findById(categoryId);
     res.render("products", {
       sneakers: dbResSneaker,
-      category: dbResCat.label,
+      category: req.params.cat,
       tags: dbResTag,
     });
   } catch (err) {
@@ -28,8 +33,19 @@ async function renderCategoryPage(req, res) {
 }
 
 router.get("/one-product/:id", (req, res) => {
-  res.send("baz");
+  renderOneProduct(req, res);
 });
+
+async function renderOneProduct(req, res) {
+  try {
+    const dbResSneaker = await Sneaker.findById(req.params.id);
+    res.render("one_product", {
+      sneaker: dbResSneaker,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 router.get("/signup", (req, res) => {
   res.render("signup");

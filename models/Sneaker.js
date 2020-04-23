@@ -11,7 +11,7 @@ const sneakerSchema = new Schema({
   price: Number,
   category: {
     type: String,
-    enum: ["Men", "Women", "Kids"],
+    enum: ["men", "women", "kids"],
   },
   id_tags: [{ type: Schema.Types.ObjectId, ref: "Tag" }],
 });

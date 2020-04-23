@@ -10,7 +10,7 @@ const Tag = require("../models/Tag");
 //     sizes: [7, 8, 9, 10, 11, 12, 13],
 //     description: "The bounciest boots in basketball.",
 //     price: 500,
-//     category: "Men",
+//     category: "men",
 //     id_tags: ["5ea16c11b318710a11dbffc6"],
 //   },
 //   {
@@ -19,7 +19,7 @@ const Tag = require("../models/Tag");
 //     sizes: [5, 6, 7, 8],
 //     description: "Cooler than Keds for cool kids.",
 //     price: 80,
-//     category: "Kids",
+//     category: "kids",
 //     id_tags: ["5ea16c11b318710a11dbffc8"],
 //   },
 // ];
