@@ -2,7 +2,7 @@
 
 require("dotenv").config();
 require("./config/mongodb"); // database initial setup
-require("./helpers/hbs"); // utils for hbs templates
+require("./helpers/helpers-hbs"); // utils for hbs templates
 
 
 // base dependencies
@@ -28,7 +28,7 @@ app.use(cookieParser());
 // SESSION SETUP
 app.use(
   session({
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.MONGO_URI,
     cookie: { maxAge: 60000 }, // in millisec
     store: new MongoStore({
       mongooseConnection: mongoose.connection,
@@ -39,7 +39,7 @@ app.use(
   })
 );
 
-app.locals.site_url = process.env.SITE_URL;
+// app.locals.site_url = process.env.SITE_URL;
 // used in front end to perform ajax request (var instead of hardcoded)
 
 // CUSTOM MIDDLEWARE
@@ -78,6 +78,6 @@ app.use("/", basePageRouter);
 
 const listener = app.listen(process.env.PORT, () => {
   console.log(
-    `app started at ${process.env.SITE_URL}:${process.env.PORT}`
+    `app started at http://localhost:${process.env.PORT}`
   );
 });
