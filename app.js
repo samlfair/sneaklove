@@ -1,4 +1,4 @@
-return console.log("node says : waxOn/waxOff !");
+// return console.log("node says : waxOn/waxOff !");
 
 require("dotenv").config();
 require("./config/mongodb"); // database initial setup
@@ -7,7 +7,7 @@ require("./helpers/hbs"); // utils for hbs templates
 
 // base dependencies
 const express = require("express");
-const hbo = require("hbs");
+const hbs = require("hbs");
 const app = express();
 const session = require("express-session");
 const mongoose = require("mongoose");
