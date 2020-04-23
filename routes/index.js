@@ -14,7 +14,7 @@ router.get("/sneakers/:cat", (req, res) => {
 async function renderCategoryPage(req, res) {
   categoryId = req.params.cat;
   try {
-    const dbResSneaker = await Sneaker.find({ tag_id: categoryId }); // not sure if this is working
+    const dbResSneaker = await Sneaker.find({ id_tags: req.params.cat }); // not sure if this is working
     const dbResTag = await Tag.find({});
     const dbResCat = await Tag.findById(categoryId);
     res.render("products", {
