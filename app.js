@@ -76,6 +76,7 @@ const basePageRouter = require("./routes/index");
 app.use("/", basePageRouter);
 
 app.use("/", require("./routes/auth"))
+app.use("/", require("./routes/dashboard_sneaker"))
 
 const listener = app.listen(process.env.PORT, () => {
   console.log(`app started at http://localhost:${process.env.PORT}`);
