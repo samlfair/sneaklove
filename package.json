@@ -19,7 +19,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon ./app.js -e js,hbs"
+    "server": "nodemon --inspect ./app.js -e js,hbs"
   },
   "keywords": [],
   "author": "",

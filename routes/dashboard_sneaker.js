@@ -4,7 +4,7 @@ const Sneaker = require("../models/Sneaker");
 const Tag = require("../models/Tag");
 const multer = require("multer");
 const upload = multer();
-const uploadCloud = require('../config/cloudinary.js')
+const uploadCloud = require("../config/cloudinary.js");
 
 router.get("/add", (req, res) => {
   Tag.find({}).then((dbResTag) => {
@@ -14,17 +14,14 @@ router.get("/add", (req, res) => {
 });
 
 router.get("/product-edit/:id", async (req, res) => {
-    try{
-  const dbFindSneaker = await Sneaker.findById(req.params.id)
-  const dbFindTag = await Tag.find({})
-res.render("product_edit", { sneaker: dbFindSneaker,
- tags: dbFindTag });
-    
-} catch (err) {
-      console.log(err);
-    }
-}); 
-
+  try {
+    const dbFindSneaker = await Sneaker.findById(req.params.id);
+    const dbFindTag = await Tag.find({});
+    res.render("product_edit", { sneaker: dbFindSneaker, tags: dbFindTag });
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 router.get("/manage", (req, res) => {
   Sneaker.find({})
@@ -38,33 +35,24 @@ router.get("/manage", (req, res) => {
     });
 });
 
-router.post("/prod-add", upload.single("image"), (req, res) => {
-
-const newSneaker = {
-    name : req.body.name,
+router.post("/prod-add", uploadCloud.single("image"), (req, res) => {
+  const newSneaker = {
+    name: req.body.name,
     ref: req.body.ref,
     description: req.body.description,
     price: req.body.price,
     category: req.body.category,
     id_tags: req.body.id_tags,
-}
-
-// console.log(newSneaker)
-
-if(req.file){
-    console.log(req.file)
-    newSneaker.image = req.file.originalname;
-}
-
+  };
+  if (req.file) {
+    newSneaker.image = req.file.url;
+  }
   Sneaker.create(newSneaker)
-  
     .then((dbRes) => {
       res.redirect("/one-product/" + dbRes._id);
     })
     .catch((err) => console.log(err));
 });
-
-
 
 router.post("/new-tag", (req, res) => {
   console.log(req.body);
@@ -77,31 +65,28 @@ router.post("/new-tag", (req, res) => {
     });
 });
 
-router.post("/product-edit/:id" , (req, res)=>{
-    console.log(req.params.id);
-    Sneaker.findByIdAndUpdate(req.params.id, req.body, {new: true})
-    .then((dbResult)=>{
-        res.redirect('/one-product/' + dbResult._id);
-        // res.status(201).json(dbResult)
-    }).catch((err)=>{console.log(err)})
-
-}); 
-
-router.delete("/:id", (req, res)=>{
-    Sneaker.findByIdAndDelete(req.params.id)
-    .then((dbResult)=>{
-         res.status(201).json({
-         response: dbResult
-         });
-         })
-         .catch((err) => {
-             console.log(err);
-         });
-
+router.post("/product-edit/:id", (req, res) => {
+  console.log(req.params.id);
+  Sneaker.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .then((dbResult) => {
+      res.redirect("/one-product/" + dbResult._id);
+      // res.status(201).json(dbResult)
     })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
-
-
-
+router.delete("/:id", (req, res) => {
+  Sneaker.findByIdAndDelete(req.params.id)
+    .then((dbResult) => {
+      res.status(201).json({
+        response: dbResult,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
 module.exports = router;
