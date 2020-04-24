@@ -11,3 +11,4 @@ newSneaker.onclick = function () {
     selectTag.innerHTML += `<option value="${dbRes.data.response._id}">${inputValue}</option>`;
   });
 };
+

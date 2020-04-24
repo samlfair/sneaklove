@@ -53,4 +53,17 @@ router.post("/new-tag", (req, res) => {
     });
 });
 
+router.post("/product-edit/:id" , (req, res)=>{
+    console.log(req.params.id);
+    Sneaker.findByIdAndUpdate(req.params.id, req.body, {new: true})
+    .then((dbResult)=>{
+        res.redirect('/one-product/' + dbResult._id);
+        // res.status(201).json(dbResult)
+    }).catch((err)=>{console.log(err)})
+
+}); 
+
+
+
+
 module.exports = router;
