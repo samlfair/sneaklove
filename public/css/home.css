@@ -6,10 +6,11 @@
   background: black;
   width: 100%;
   background-image: url("/medias/img/home-img-2.png");
-  background-size: contain;
+  background-size: cover;
+  background-position: center center;
   background-repeat: no-repeat;
 }
 
-/* .img-home {
-  width: 60%;
-} */
+.img-home {
+  display: none;
+}
