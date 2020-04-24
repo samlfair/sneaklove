@@ -38,13 +38,33 @@ router.get("/manage", (req, res) => {
     });
 });
 
-router.post("/prod-add", upload.none(), (req, res) => {
-  Sneaker.create(req.body)
+router.post("/prod-add", upload.single("image"), (req, res) => {
+
+const newSneaker = {
+    name : req.body.name,
+    ref: req.body.ref,
+    description: req.body.description,
+    price: req.body.price,
+    category: req.body.category,
+    id_tags: req.body.id_tags,
+}
+
+// console.log(newSneaker)
+
+if(req.file){
+    console.log(req.file)
+    newSneaker.image = req.file.originalname;
+}
+
+  Sneaker.create(newSneaker)
+  
     .then((dbRes) => {
       res.redirect("/one-product/" + dbRes._id);
     })
     .catch((err) => console.log(err));
 });
+
+
 
 router.post("/new-tag", (req, res) => {
   console.log(req.body);
