@@ -14,6 +14,10 @@ const sneakerSchema = new Schema({
     enum: ["men", "women", "kids"],
   },
   id_tags: [{ type: Schema.Types.ObjectId, ref: "Tag" }],
+  image: {
+    type: String,
+    default: "http://source.unsplash.com/DMl5gG0yWWY"
+  }
 });
 
 const Sneaker = mongoose.model("Sneaker", sneakerSchema);

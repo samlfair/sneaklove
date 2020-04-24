@@ -4,6 +4,7 @@ const Sneaker = require("../models/Sneaker");
 const Tag = require("../models/Tag");
 const multer = require("multer");
 const upload = multer();
+const uploadCloud = require('../config/cloudinary.js')
 
 router.get("/add", (req, res) => {
   Tag.find({}).then((dbResTag) => {
