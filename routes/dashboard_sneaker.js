@@ -12,15 +12,18 @@ router.get("/add", (req, res) => {
   });
 });
 
-router.get("/product-edit/:id", (req, res) => {
-  Sneaker.findById(req.params.id)
-    .then((dbRes) => {
-      res.render("product_edit", { sneaker: dbRes });
-    })
-    .catch((err) => {
+router.get("/product-edit/:id", async (req, res) => {
+    try{
+  const dbFindSneaker = await Sneaker.findById(req.params.id)
+  const dbFindTag = await Tag.find({})
+res.render("product_edit", { sneaker: dbFindSneaker,
+ tags: dbFindTag });
+    
+} catch (err) {
       console.log(err);
-    });
-});
+    }
+}); 
+
 
 router.get("/manage", (req, res) => {
   Sneaker.find({})
@@ -62,6 +65,20 @@ router.post("/product-edit/:id" , (req, res)=>{
     }).catch((err)=>{console.log(err)})
 
 }); 
+
+router.delete("/:id", (req, res)=>{
+    Sneaker.findByIdAndDelete(req.params.id)
+    .then((dbResult)=>{
+         res.status(201).json({
+         response: dbResult
+         });
+         })
+         .catch((err) => {
+             console.log(err);
+         });
+
+    })
+
 
 
 
